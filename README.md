@@ -102,3 +102,23 @@ npm installすれば同じ環境を作り出すことができます。
 そのため、node_modulesファイルはgitでファイル管理する必要はないため、上記.gitignoreへ記載することで、無視することができます。
 
 他にも秘密鍵や.envファイルなどファイル管理で使うと漏えいの可能性があるものに対して使うのが一般的です。
+
+# routerについて
+express.Router()を利用することでルーティングを実現できます。
+
+例: Users ルート(ユーザ情報用のルート)を追加する場合
+```
+const app = express();
+// ルーターの作成
+const router = express.Router();
+
+// routers/users.jsをインポート
+const user = require('./routers/users.js');
+
+// 既存ルーティングにプレフィックスを追加
+app.use('/api/v1', router);
+
+// Usersルーティングの追加
+app.use('/Users', user.router);
+
+```
