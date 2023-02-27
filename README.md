@@ -31,8 +31,10 @@ Is this OK? (yes) y
 ```
 
 するとディレクトリの中にpackage.jsonファイルが作成される
-　※基本的にpackage.jsonの中身はscriptの内容のみ変更する
-　　他のdependencyなどは基本的に編集しないこと
+
+※基本的にpackage.jsonの中身はscriptの内容のみ変更する
+
+  他のdependencyなどは基本的に編集しないこと(npm installなどの整合性がなくなるため)
 
 ## 必要なパッケージのインストール
 - expressのインストール
@@ -87,3 +89,16 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 ```
+
+## .gitignoreについて
+.gitignoreはGitでの管理を無視するための設定ファイルです。
+
+不必要なファイルをGitのコミットに含めないようにしてくれます。
+
+例えばnode_modulesフォルダは大量のパッケージファイルが入っていますが、package.jsonファイルに必要なパッケージは記載しているため
+
+npm installすれば同じ環境を作り出すことができます。
+
+そのため、node_modulesファイルはgitでファイル管理する必要はないため、上記.gitignoreへ記載することで、無視することができます。
+
+他にも秘密鍵や.envファイルなどファイル管理で使うと漏えいの可能性があるものに対して使うのが一般的です。
