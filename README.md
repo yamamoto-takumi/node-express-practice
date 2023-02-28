@@ -122,3 +122,31 @@ app.use('/api/v1', router);
 app.use('/Users', user.router);
 
 ```
+
+## routerの作成
+例：routers/users.js
+
+```
+const express = require('express');
+// ルータの作成
+const router = express.Router();
+
+// ルータへGetメソッド追加
+router.get('/', async (req, res, next) => {
+  // 処理
+});
+
+// モジュールをexportする
+// exportすることで、外部からrequireでこのルータを利用できる
+module.exports = {
+  router
+}
+```
+
+requireで外部からもってくる例
+```
+const users = require('./routers/users');
+
+// module.exportしたrouterをセットする
+app.use('/Users', users.router);
+```
