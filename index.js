@@ -1,6 +1,18 @@
 // Express フレームワークのインポート
 const express = require('express');
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
+
+const options = {
+    swaggerDefinition: {
+        info: {
+            title: 'node-express-practice API',
+            version: '0.0.1'
+        },
+    },
+    apis: ['./index.js', './routers/*.js']
+}
 
 // アプリサーバを動かすポートの指定
 const PORT = 3000;
@@ -9,6 +21,8 @@ const router = express.Router();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(options)));
+
 
 // users.jsで作成したルータ
 const users = require('./routers/users');
@@ -22,11 +36,31 @@ app.use('/api/v1', router);
 app.use('/Users', users.router);
 
 /**
- * Getメソッドの例
+ * @swagger
+ * /api/v1:
+ *   get:
+ *     summary: returns greeting
+ *     description: 挨拶を返します
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: name
+ *         description: your name
+ *         in : query
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: returns a greeting
+ *         examples:
+ *           result:
+ *             message: Hello Yamamoto!
+ *             yourName: Yamamoto
  */
 router.get('/', async(req, res, next) => {
+    const name = req.query.name;
     console.log(`こんにちは！！`);
-    res.status(200).send({ message:"Hello World!!" });
+    res.status(200).send({ message:`Hello ${name}`, yourName: name});
 });
 
 /**

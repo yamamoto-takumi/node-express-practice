@@ -150,3 +150,67 @@ const users = require('./routers/users');
 // module.exportしたrouterをセットする
 app.use('/Users', users.router);
 ```
+
+# swaggerの導入
+
+1. 下記コマンドで必要パッケージをインストールします(他プロジェクトの場合のみ)
+```
+npm i -D swagger-ui-express
+npm i -D  swagger-jsdoc
+
+// only this project
+npm install
+```
+
+2. エントリーポイント(index.js)にswagger機能を追加します
+```
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
+
+const options = {
+    swaggerDefinition: {
+        info: {
+            title: 'node-express-practice API',
+            version: '0.0.1'
+        },
+    },
+    apis: ['./index.js', './routers/*.js']
+}
+
+const app = express();
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(options)));
+```
+
+3. APIにjsdoc形式で記述する
+```
+/**
+ * @swagger
+ * /api/v1:
+ *   get:
+ *     summary: returns greeting
+ *     description: 挨拶を返します
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: name
+ *         description: your name
+ *         in : query
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: returns a greeting
+ *         examples:
+ *           result:
+ *             message: Hello Yamamoto!
+ *             yourName: Yamamoto
+ */
+router.get('/', async(req, res, next) => {
+    const name = req.query.name;
+    console.log(`こんにちは！！`);
+    res.status(200).send({ message:`Hello ${name}`, yourName: name});
+});
+
+```
+
+4. Nodeを起動する(node index.js)
