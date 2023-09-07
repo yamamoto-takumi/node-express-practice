@@ -41,35 +41,6 @@ app.use('/api/v1', router);
 app.use('/Users', users.router);
 
 /**
- * @swagger
- * /api/v1:
- *   get:
- *     summary: returns greeting
- *     description: 挨拶を返します
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: name
- *         description: your name
- *         in : query
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: returns a greeting
- *         examples:
- *           result:
- *             message: Hello Yamamoto!
- *             yourName: Yamamoto
- */
-router.get('/', async(req, res, next) => {
-    
-    res.status(200).send({ message:`Hello ${name}`, yourName: name});
-});
-
-
-
-/**
  * Getメソッドの例2
  * パスパラメータから値を取得
  */
