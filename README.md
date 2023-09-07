@@ -43,6 +43,13 @@ npm install express
 ```
 ※上記インストール完了すると「package.json」の「dependencies」の中に「express」が自動で追加される
 
+ただ動かすだけのときは下記だけで良い
+```
+npm install
+```
+
+※上記ではpackage.jsonの依存パッケージがインストールされる
+
 ## エントリーポイントの作成
 npm initでエントリーポイントを指定したと思うので、そのエントリーポイントを作成する。
 (デフォルトではindex.jsがエントリーポイントとなっている)
