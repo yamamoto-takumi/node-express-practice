@@ -26,7 +26,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(options)));
 app.use(express.static('public'));
 
 app.get('/', function(request, response) {
-  response.sendFile(__dirname + '/index.html');
+  response.sendFile(__dirname + '/views/index.html');
 });
 
 // users.jsで作成したルータ
