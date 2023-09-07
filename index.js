@@ -23,6 +23,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(options)));
 
+app.use(express.static('public'));
+
+app.get('/', function(request, response) {
+  response.sendFile(__dirname + '/index.html');
+});
 
 // users.jsで作成したルータ
 const users = require('./routers/users');
@@ -58,10 +63,11 @@ app.use('/Users', users.router);
  *             yourName: Yamamoto
  */
 router.get('/', async(req, res, next) => {
-    const name = req.query.name;
-    console.log(`こんにちは！！`);
+    
     res.status(200).send({ message:`Hello ${name}`, yourName: name});
 });
+
+
 
 /**
  * Getメソッドの例2
